@@ -93,15 +93,29 @@
     "module": "Phase One",
     "lesson": "Moving Averages (AKA ITT) 2.0",
     "teacher": "Cue",
-    "status": "in-progress",
-    "updated": null,
+    "status": "complete",
+    "updated": "2026-03-05",
     "tags": [
       "moving-averages",
-      "entries",
-      "momentum"
+      "trend",
+      "momentum",
+      "bias"
     ],
-    "summary": "Pulling the ITT lesson so we can codify the moving-average workflow and quick-reference cheatsheet.",
-    "q_and_a": [],
+    "summary": "Documented Cue's SMA 6/85 workflow for reading bias, rotating timeframes until the lines stay clean, and syncing fib/trendline confluence with MA-based entries and exits.",
+    "q_and_a": [
+      {
+        "question": "How do I pick the right timeframe for the 6/85 stack?",
+        "answer": "Start on Daily then cycle through H4, H1, and even M30, saving the chart where the SMAs arc smoothly without threading through price; trade from that reference timeframe until the flow changes."
+      },
+      {
+        "question": "What confirms a legitimate momentum shift?",
+        "answer": "Wait for a decisive close through the slow SMA 85 plus a structural break (new HH/LL) before flipping bias; a single wick through the line is not enough."
+      },
+      {
+        "question": "How do I combine MAs with fibs and structure?",
+        "answer": "Anchor fibs on the active swing and only take MA touches when a 23.6/38.2 retracement aligns with prior support/resistance or trendline reactions, then invalidate the idea if price closes through the slow MA."
+      }
+    ],
     "links": {
       "video": "https://app.wsatraining.com/courses/phase-one/lessons/moving-averages-aka-i-t-t-2-0/",
       "notes": "content/module-01/moving-averages-aka-i-t-t-2-0.md"
@@ -112,15 +126,29 @@
     "module": "Phase One",
     "lesson": "Identifying the Trend 1.0",
     "teacher": "Cue",
-    "status": "in-progress",
-    "updated": null,
+    "status": "complete",
+    "updated": "2026-03-05",
     "tags": [
       "structure",
       "bias",
-      "checklist"
+      "ema",
+      "context-scan"
     ],
-    "summary": "Queuing the market-structure checklist so it pairs with the fresh S/R zones.",
-    "q_and_a": [],
+    "summary": "Documented the top-down trend scan: label HH/HL or LL/LH on the higher frames, confirm with Cue's 8 EMA vs. 18 SMA stack, and only drop lower when both structure and EMAs agree.",
+    "q_and_a": [
+      {
+        "question": "What is the context scan order before taking trades?",
+        "answer": "Start on weekly/monthly to see if price is trending or boxed, lock the daily bias with HH/HL vs. LL/LH plus EMA alignment, then refine entries from H4 and only dip lower once those frames agree."
+      },
+      {
+        "question": "What confirms a legitimate trend flip?",
+        "answer": "You need both a structural break (new HH for bulls or new LL for bears) and an EMA flip where the 8 crosses and holds beyond the 18; a single intraday spike without EMA agreement is just noise."
+      },
+      {
+        "question": "When should you sit out?",
+        "answer": "Stand down whenever the EMA stack braids together or structure alternates HH and LL inside a tight box\u2014those conditions signal consolidation and no clean bias."
+      }
+    ],
     "links": {
       "video": "https://app.wsatraining.com/courses/phase-one/lessons/identifying-the-trend-1-0/",
       "notes": "content/module-01/identifying-the-trend-1-0.md"
