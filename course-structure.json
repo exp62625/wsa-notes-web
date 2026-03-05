@@ -1,0 +1,19 @@
+[
+  { "id": "welcome", "label": "Welcome Video" },
+  { "id": "introduction", "label": "Introduction to Forex" },
+  { "id": "getting-started", "label": "Getting Started" },
+  { "id": "mental-health", "label": "Mental Health" },
+  { "id": "psychology-training", "label": "Psychology Training" },
+  { "id": "phase-one", "label": "Phase One" },
+  { "id": "phase-two", "label": "Phase Two" },
+  { "id": "phase-three", "label": "Phase Three" },
+  { "id": "phase-four", "label": "Phase Four" },
+  { "id": "major-market-patterns", "label": "Major Market Patterns" },
+  { "id": "webinars", "label": "Webinars", "sort": "numeric" },
+  { "id": "post-course-mindset", "label": "Post Course Mindset" },
+  { "id": "crypto", "label": "Margin Trading Crypto" },
+  { "id": "psycho-trading", "label": "Psycho Trading" },
+  { "id": "taxes", "label": "Taxes" },
+  { "id": "alternative-layout", "label": "Alternative Course Layout" },
+  { "id": "certificate", "label": "Course Certificate" }
+]

@@ -27,7 +27,8 @@
     "links": {
       "video": "https://app.wsatraining.com/courses/phase-one/lessons/drawing-trendlines-2-0-2/",
       "notes": "content/module-01/drawing-trendlines-2-0.md"
-    }
+    },
+    "section": "phase-one"
   },
   {
     "id": "phase-one-support-and-resistance-2-0",
@@ -53,7 +54,8 @@
     "links": {
       "video": "https://app.wsatraining.com/courses/phase-one/lessons/support-and-resistance-2-0/",
       "notes": "content/module-01/support-and-resistance-2-0.md"
-    }
+    },
+    "section": "phase-one"
   },
   {
     "id": "phase-one-supply-and-demand",
@@ -86,7 +88,8 @@
     "links": {
       "video": "https://app.wsatraining.com/courses/phase-one/lessons/supply-and-demand/",
       "notes": "content/module-01/supply-and-demand.md"
-    }
+    },
+    "section": "phase-one"
   },
   {
     "id": "phase-one-moving-averages-aka-itt-2-0",
@@ -119,7 +122,8 @@
     "links": {
       "video": "https://app.wsatraining.com/courses/phase-one/lessons/moving-averages-aka-i-t-t-2-0/",
       "notes": "content/module-01/moving-averages-aka-i-t-t-2-0.md"
-    }
+    },
+    "section": "phase-one"
   },
   {
     "id": "phase-one-identifying-the-trend-1-0",
@@ -152,7 +156,8 @@
     "links": {
       "video": "https://app.wsatraining.com/courses/phase-one/lessons/identifying-the-trend-1-0/",
       "notes": "content/module-01/identifying-the-trend-1-0.md"
-    }
+    },
+    "section": "phase-one"
   },
   {
     "id": "phase-one-additional-information",
@@ -185,7 +190,8 @@
     "links": {
       "video": "https://app.wsatraining.com/courses/phase-one/lessons/additional-information/",
       "notes": "content/module-01/additional-information.md"
-    }
+    },
+    "section": "phase-one"
   },
   {
     "id": "phase-one-support-and-resistance",
@@ -215,6 +221,36 @@
     "links": {
       "video": "https://app.wsatraining.com/courses/phase-one/lessons/support-and-resistance/",
       "notes": "content/module-01/support-and-resistance.md"
-    }
+    },
+    "section": "phase-one"
+  },
+  {
+    "id": "phase-one-save-these-and-print-them-out",
+    "module": "Phase One",
+    "lesson": "Save These & Print Them Out",
+    "teacher": "Cue",
+    "status": "complete",
+    "updated": "2026-03-05",
+    "tags": [
+      "reference",
+      "checklist",
+      "candlestick"
+    ],
+    "summary": "Archived Cue\u2019s 121-page reversal-pattern cheat sheet, folded its rulebook into the notes, and linked the local PDF so Phase One traders can grab the flashcards before tagging charts.",
+    "q_and_a": [
+      {
+        "question": "How should I validate a hammer or shooting star before taking the trade?",
+        "answer": "Make sure it forms at a pre-marked HTF level, the wick is at least twice the body, and the next candle closes beyond the pattern extreme with rising volume before you click."
+      },
+      {
+        "question": "Where do the stops live for the multi-candle reversals in the deck?",
+        "answer": "For Engulfings, Morning/Evening Stars, and the Three Inside/Outside sets, the stop goes beyond the confirmation candle\u2019s wick so the full structure has to break before you\u2019re out."
+      }
+    ],
+    "links": {
+      "video": "https://app.wsatraining.com/courses/phase-one/lessons/save-these-and-print-them-out/",
+      "notes": "content/module-01/save-these-and-print-them-out.md"
+    },
+    "section": "phase-one"
   }
 ]

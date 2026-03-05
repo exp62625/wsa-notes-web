@@ -1,9 +1,10 @@
 const state = {
   notes: [],
   filtered: [],
+  sections: [],
+  section: '',
   activeTags: new Set(),
   status: 'all',
-  module: 'all',
   search: ''
 };
 
@@ -51,16 +52,8 @@ async function init() {
     });
   }
 
-  try {
-    const res = await fetch('notes.json');
-    state.notes = await res.json();
-    state.notes.sort((a, b) => (a.lesson || '').localeCompare(b.lesson || ''));
-    buildModuleFilters();
-    buildTagFilters();
-    applyFilters();
-  } catch (err) {
-    DOM.cards.innerHTML = `<p class="error">Unable to load notes: ${err.message}</p>`;
-  }
+  await loadSections();
+  await loadNotes();
 
   DOM.search.addEventListener('input', (e) => {
     state.search = e.target.value.toLowerCase();
@@ -71,6 +64,38 @@ async function init() {
     state.status = e.target.value;
     applyFilters();
   });
+}
+
+async function loadSections() {
+  try {
+    const res = await fetch('course-structure.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    state.sections = await res.json();
+  } catch (err) {
+    console.error('Unable to load course structure', err);
+    state.sections = [{ id: 'phase-one', label: 'Phase One' }];
+  }
+  if (!state.section && state.sections.length) {
+    state.section = state.sections[0].id;
+  }
+  buildSectionTabs();
+}
+
+async function loadNotes() {
+  try {
+    const res = await fetch('notes.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    state.notes = await res.json();
+    const populated = state.sections.find((section) => state.notes.some((note) => note.section === section.id));
+    if (!state.section && populated) {
+      state.section = populated.id;
+    }
+    setActiveSectionTab();
+    buildTagFilters();
+    applyFilters();
+  } catch (err) {
+    DOM.cards.innerHTML = `<p class="error">Unable to load notes: ${err.message}</p>`;
+  }
 }
 
 function setupTelegramShell() {
@@ -122,31 +147,29 @@ function hexToRgba(hex, alpha = 1) {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
-function buildModuleFilters() {
-  const modules = [...new Set(state.notes.map((note) => note.module))].sort();
+function buildSectionTabs() {
+  if (!DOM.modules) return;
   DOM.modules.innerHTML = '';
-  DOM.modules.appendChild(createModuleButton('All modules', 'all'));
-  modules.forEach((module) => DOM.modules.appendChild(createModuleButton(module, module)));
-  setActiveModuleButton();
-}
-
-function createModuleButton(label, value) {
-  const button = document.createElement('button');
-  button.type = 'button';
-  button.className = 'module-button';
-  button.textContent = label;
-  button.dataset.value = value;
-  button.addEventListener('click', () => {
-    state.module = value;
-    setActiveModuleButton();
-    applyFilters();
+  state.sections.forEach((section) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'module-button';
+    button.textContent = section.label;
+    button.dataset.value = section.id;
+    button.addEventListener('click', () => {
+      state.section = section.id;
+      setActiveSectionTab();
+      applyFilters();
+    });
+    DOM.modules.appendChild(button);
   });
-  return button;
+  setActiveSectionTab();
 }
 
-function setActiveModuleButton() {
+function setActiveSectionTab() {
+  if (!DOM.modules) return;
   DOM.modules.querySelectorAll('.module-button').forEach((button) => {
-    if (button.dataset.value === state.module) {
+    if (button.dataset.value === state.section) {
       button.classList.add('active');
     } else {
       button.classList.remove('active');
@@ -183,16 +206,26 @@ function toggleTag(tag, chip) {
 function applyFilters() {
   state.filtered = state.notes.filter((note) => {
     const matchesStatus = state.status === 'all' || note.status === state.status;
-    const matchesModule = state.module === 'all' || note.module === state.module;
+    const matchesSection = !state.section || note.section === state.section;
     const matchesTags = !state.activeTags.size || note.tags?.some((t) => state.activeTags.has(t));
     const matchesSearch = !state.search ||
       note.lesson.toLowerCase().includes(state.search) ||
-      note.module.toLowerCase().includes(state.search) ||
+      (note.module || '').toLowerCase().includes(state.search) ||
       note.tags?.some((t) => t.toLowerCase().includes(state.search));
-    return matchesStatus && matchesModule && matchesTags && matchesSearch;
+    return matchesStatus && matchesSection && matchesTags && matchesSearch;
   });
 
+  sortFiltered();
   renderCards();
+}
+
+function sortFiltered() {
+  const section = state.sections.find((item) => item.id === state.section);
+  if (section?.sort === 'numeric') {
+    state.filtered.sort((a, b) => (a.order || 0) - (b.order || 0));
+  } else {
+    state.filtered.sort((a, b) => (a.lesson || '').localeCompare(b.lesson || ''));
+  }
 }
 
 function renderCards() {
