@@ -1,20 +1,14 @@
 {
-  "lastUpdated": "2026-03-05T19:37:00Z",
-  "active": [
-    {
-      "id": "phase-one-additional-information",
-      "title": "Additional Information",
-      "module": "Phase One",
-      "stage": "Transcribing",
-      "started": "2026-03-05T19:32:00Z",
-      "summary": "Pulling Cue's pre-flight resources so the printable cheat sheets live inside the app before the next webinar batch.",
-      "next": "Condense the reminders + attach the files for quick reference."
-    }
-  ],
+  "lastUpdated": "2026-03-05T19:40:00Z",
+  "active": [],
   "queue": [
     {
       "title": "Phase One \u2013 Save These & Print Them Out",
-      "note": "Bundle the reference shots after Additional Information ships."
+      "note": "Bundle the reference screenshots after today\u2019s batch."
+    },
+    {
+      "title": "Webinar backlog",
+      "note": "Start with the first Chart N Chill replay once Phase One is fully documented."
     }
   ]
 }
