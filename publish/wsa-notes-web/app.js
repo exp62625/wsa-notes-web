@@ -17,6 +17,7 @@ const DOM = {
   progressSection: document.getElementById('progressSection'),
   progressFeed: document.getElementById('progressFeed'),
   progressUpdated: document.getElementById('progressUpdated'),
+  debugStatus: document.getElementById('debugStatus'),
   viewerRoot: document.getElementById('noteViewer'),
   viewerOverlay: document.getElementById('noteViewerOverlay'),
   viewerPanel: document.getElementById('noteViewerPanel'),
@@ -40,6 +41,13 @@ const progressState = {
   lastUpdated: null
 };
 
+function setStatus(message) {
+  if (DOM.debugStatus) {
+    DOM.debugStatus.textContent = message;
+  }
+  console.log('[WSA]', message);
+}
+
 const focusableSelector = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
 
 if (DOM.viewerClose) {
@@ -53,6 +61,7 @@ document.addEventListener('keydown', handleViewerKeydown);
 init();
 
 async function init() {
+  setStatus('Initializing…');
   setupTelegramShell();
 
   if (window.marked && typeof window.marked.setOptions === 'function') {
@@ -65,6 +74,7 @@ async function init() {
   }
 
   await Promise.all([loadNotes(), loadProgress()]);
+  setStatus(`Lessons loaded: ${state.notes.length}`);
 
   DOM.search.addEventListener('input', (e) => {
     state.search = e.target.value.toLowerCase();
@@ -86,8 +96,10 @@ async function loadNotes() {
     buildModuleFilters();
     buildTagFilters();
     applyFilters();
+    setStatus(`Rendered ${state.filtered.length} lessons`);
   } catch (err) {
     DOM.cards.innerHTML = `<p class="error">Unable to load notes: ${err.message}</p>`;
+    setStatus(`Unable to load notes: ${err.message}`);
   }
 }
 

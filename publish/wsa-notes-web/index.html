@@ -39,7 +39,8 @@
     </section>
     <nav id="moduleFilters" class="module-nav" aria-label="Module filters"></nav>
     <section id="tagFilters" class="chip-row" aria-label="Tag filters"></section>
-    <section id="cards" class="card-grid" aria-live="polite"></section>
+    <section id="cards" class="card-grid" aria-live="polite"><p class="muted">Loading lessons…</p></section>
+    <p id="debugStatus" class="debug-status"></p>
   </main>
 
   <div class="note-viewer" id="noteViewer" aria-hidden="true">
@@ -84,6 +85,15 @@
     </article>
   </template>
 
+  <script>
+    window.addEventListener('error', function (event) {
+      var box = document.getElementById('debugStatus');
+      if (box) {
+        box.textContent = 'Error: ' + event.message + ' (' + event.filename + ':' + event.lineno + ')';
+      }
+      console.log('window error', event.message, event.filename, event.lineno);
+    });
+  </script>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="app.js?v=20260305-1" type="module"></script>
