@@ -1,0 +1,14 @@
+tmp/
+.openclaw/
+memory/
+notes/wallstreet-academy/transcripts/
+.idea/
+.DS_Store
+AGENTS.md
+SOUL.md
+USER.md
+TOOLS.md
+IDENTITY.md
+HEARTBEAT.md
+TASKS.md
+notes/
