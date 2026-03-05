@@ -1,10 +1,29 @@
 {
-  "lastUpdated": "2026-03-05T19:30:00Z",
-  "active": [],
+  "lastUpdated": "2026-03-05T19:35:00Z",
+  "active": [
+    {
+      "id": "phase-one-additional-information",
+      "title": "Additional Information",
+      "module": "Phase One",
+      "stage": "Transcribing",
+      "started": "2026-03-05T19:32:00Z",
+      "summary": "Pulling Cue's pre-flight resources so the printable cheat sheets live inside the app before the next webinar batch.",
+      "next": "Condense the reminders + attach the files for quick reference."
+    },
+    {
+      "id": "phase-one-support-and-resistance",
+      "title": "Support and Resistance 1.0",
+      "module": "Phase One",
+      "stage": "Note drafting",
+      "started": "2026-03-05T19:33:00Z",
+      "summary": "Documenting the original S/R primer to show the progression before the 2.0 upgrade.",
+      "next": "Tag the foundational rules + comparisons to the 2.0 workflow."
+    }
+  ],
   "queue": [
     {
-      "title": "Phase One \u2013 Additional Information",
-      "note": "Prep the lighter reference lesson right after the current batch ships."
+      "title": "Phase One \u2013 Save These & Print Them Out",
+      "note": "Bundle the reference shots after Additional Information ships."
     }
   ]
 }

@@ -153,5 +153,43 @@
       "video": "https://app.wsatraining.com/courses/phase-one/lessons/identifying-the-trend-1-0/",
       "notes": "content/module-01/identifying-the-trend-1-0.md"
     }
+  },
+  {
+    "id": "phase-one-additional-information",
+    "module": "Phase One",
+    "lesson": "Additional Information",
+    "teacher": "Cue",
+    "status": "in-progress",
+    "updated": null,
+    "tags": [
+      "onboarding",
+      "prep",
+      "resources"
+    ],
+    "summary": "Capturing the quick-reference notes that Cue wants printed before diving deeper into Phase One.",
+    "q_and_a": [],
+    "links": {
+      "video": "https://app.wsatraining.com/courses/phase-one/lessons/additional-information/",
+      "notes": "content/module-01/additional-information.md"
+    }
+  },
+  {
+    "id": "phase-one-support-and-resistance",
+    "module": "Phase One",
+    "lesson": "Support and Resistance",
+    "teacher": "Cue",
+    "status": "in-progress",
+    "updated": null,
+    "tags": [
+      "basics",
+      "levels",
+      "mindset"
+    ],
+    "summary": "Revisiting the original S/R primer so the progression from 1.0 \u2192 2.0 stays documented.",
+    "q_and_a": [],
+    "links": {
+      "video": "https://app.wsatraining.com/courses/phase-one/lessons/support-and-resistance/",
+      "notes": "content/module-01/support-and-resistance.md"
+    }
   }
 ]
