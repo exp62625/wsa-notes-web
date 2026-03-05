@@ -42,8 +42,12 @@ const progressState = {
 
 const focusableSelector = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
 
-DOM.viewerClose?.addEventListener('click', closeNoteViewer);
-DOM.viewerOverlay?.addEventListener('click', closeNoteViewer);
+if (DOM.viewerClose) {
+  DOM.viewerClose.addEventListener('click', closeNoteViewer);
+}
+if (DOM.viewerOverlay) {
+  DOM.viewerOverlay.addEventListener('click', closeNoteViewer);
+}
 document.addEventListener('keydown', handleViewerKeydown);
 
 init();
@@ -51,7 +55,7 @@ init();
 async function init() {
   setupTelegramShell();
 
-  if (window.marked?.setOptions) {
+  if (window.marked && typeof window.marked.setOptions === 'function') {
     window.marked.setOptions({
       gfm: true,
       breaks: true,
@@ -110,7 +114,7 @@ async function loadProgress() {
 }
 
 function setupTelegramShell() {
-  const tg = window.Telegram?.WebApp;
+  const tg = window.Telegram && window.Telegram.WebApp;
   if (!tg) return;
 
   tg.ready();
@@ -149,8 +153,9 @@ function applyTelegramTheme(params = {}) {
 }
 
 function hexToRgba(hex, alpha = 1) {
-  const clean = hex?.replace('#', '');
-  if (!clean || clean.length < 6) return hex;
+  if (!hex) return hex;
+  const clean = hex.replace('#', '');
+  if (clean.length < 6) return hex;
   const bigint = parseInt(clean.slice(0, 6), 16);
   const r = (bigint >> 16) & 255;
   const g = (bigint >> 8) & 255;
@@ -192,7 +197,7 @@ function setActiveModuleButton() {
 
 function buildTagFilters() {
   const tags = new Set();
-  state.notes.forEach((note) => note.tags?.forEach((tag) => tags.add(tag)));
+  state.notes.forEach((note) => (note.tags || []).forEach((tag) => tags.add(tag)));
 
   DOM.tags.innerHTML = '';
   [...tags].sort().forEach((tag) => {
@@ -220,11 +225,11 @@ function applyFilters() {
   state.filtered = state.notes.filter((note) => {
     const matchesStatus = state.status === 'all' || note.status === state.status;
     const matchesModule = state.module === 'all' || note.module === state.module;
-    const matchesTags = !state.activeTags.size || note.tags?.some((t) => state.activeTags.has(t));
+    const matchesTags = !state.activeTags.size || (note.tags || []).some((t) => state.activeTags.has(t));
     const matchesSearch = !state.search ||
       note.lesson.toLowerCase().includes(state.search) ||
       note.module.toLowerCase().includes(state.search) ||
-      note.tags?.some((t) => t.toLowerCase().includes(state.search));
+      (note.tags || []).some((t) => t.toLowerCase().includes(state.search));
     return matchesStatus && matchesModule && matchesTags && matchesSearch;
   });
 
@@ -253,7 +258,7 @@ function renderCards() {
     });
 
     const links = card.querySelector('.links');
-    if (note.links?.video) {
+    if (note.links && note.links.video) {
       const a = document.createElement('a');
       a.href = note.links.video;
       a.target = '_blank';
@@ -264,10 +269,10 @@ function renderCards() {
 
     const notesButton = document.createElement('button');
     notesButton.type = 'button';
-    notesButton.textContent = note.links?.notes ? 'View notes' : 'Notes coming soon';
+    notesButton.textContent = note.links && note.links.notes ? 'View notes' : 'Notes coming soon';
     notesButton.className = 'link-button';
 
-    if (note.links?.notes) {
+    if (note.links && note.links.notes) {
       notesButton.addEventListener('click', () => openNoteViewer(note));
     } else {
       notesButton.disabled = true;
@@ -352,19 +357,29 @@ async function openNoteViewer(note = {}) {
   viewerState.lastFocused = document.activeElement;
   DOM.viewerTitle.textContent = note.lesson || 'Lesson notes';
   DOM.viewerContent.innerHTML = '';
-  DOM.viewerBody?.scrollTo({ top: 0 });
+  if (DOM.viewerBody) {
+    DOM.viewerBody.scrollTo({ top: 0 });
+  }
   hideViewerError();
   setViewerLoading(true);
 
-  DOM.viewerRoot.classList.add('is-open');
-  DOM.viewerRoot.setAttribute('aria-hidden', 'false');
+  if (DOM.viewerRoot) {
+    DOM.viewerRoot.classList.add('is-open');
+    DOM.viewerRoot.setAttribute('aria-hidden', 'false');
+  }
   document.body.classList.add('has-note-viewer');
   viewerState.isOpen = true;
-  requestAnimationFrame(() => DOM.viewerClose?.focus());
+  requestAnimationFrame(() => {
+    if (DOM.viewerClose) {
+      DOM.viewerClose.focus();
+    }
+  });
 
-  viewerState.controller?.abort?.();
+  if (viewerState.controller && typeof viewerState.controller.abort === 'function') {
+    viewerState.controller.abort();
+  }
 
-  if (!note.links?.notes) {
+  if (!note.links || !note.links.notes) {
     setViewerLoading(false);
     DOM.viewerContent.innerHTML = '<p class="muted">These notes aren’t ready yet. Check back soon.</p>';
     return;
@@ -388,17 +403,25 @@ async function openNoteViewer(note = {}) {
 
 function closeNoteViewer() {
   if (!viewerState.isOpen) return;
-  viewerState.controller?.abort?.();
+  if (viewerState.controller && typeof viewerState.controller.abort === 'function') {
+    viewerState.controller.abort();
+  }
   viewerState.controller = null;
   viewerState.isOpen = false;
-  DOM.viewerRoot?.classList.remove('is-open');
-  DOM.viewerRoot?.setAttribute('aria-hidden', 'true');
+  if (DOM.viewerRoot) {
+    DOM.viewerRoot.classList.remove('is-open');
+    DOM.viewerRoot.setAttribute('aria-hidden', 'true');
+  }
   document.body.classList.remove('has-note-viewer');
   setViewerLoading(false);
   hideViewerError();
   DOM.viewerContent.innerHTML = '';
-  DOM.viewerBody?.scrollTo({ top: 0 });
-  viewerState.lastFocused?.focus?.();
+  if (DOM.viewerBody) {
+    DOM.viewerBody.scrollTo({ top: 0 });
+  }
+  if (viewerState.lastFocused && typeof viewerState.lastFocused.focus === 'function') {
+    viewerState.lastFocused.focus();
+  }
 }
 
 function setViewerLoading(isLoading) {
@@ -422,7 +445,7 @@ function hideViewerError() {
 }
 
 function renderMarkdown(markdown = '') {
-  if (window.marked?.parse) {
+  if (window.marked && typeof window.marked.parse === 'function') {
     return window.marked.parse(markdown);
   }
   const escaped = markdown
@@ -453,8 +476,8 @@ function handleViewerKeydown(event) {
 }
 
 function trapFocus(event) {
-  const focusable = DOM.viewerPanel?.querySelectorAll(focusableSelector);
-  if (!focusable?.length) return;
+  const focusable = DOM.viewerPanel ? DOM.viewerPanel.querySelectorAll(focusableSelector) : null;
+  if (!focusable || !focusable.length) return;
   const first = focusable[0];
   const last = focusable[focusable.length - 1];
 
