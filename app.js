@@ -14,10 +14,6 @@ const DOM = {
   status: document.getElementById('statusFilter'),
   tags: document.getElementById('tagFilters'),
   modules: document.getElementById('moduleFilters'),
-  progressSection: document.getElementById('progressSection'),
-  progressFeed: document.getElementById('progressFeed'),
-  progressUpdated: document.getElementById('progressUpdated'),
-  debugStatus: document.getElementById('debugStatus'),
   viewerRoot: document.getElementById('noteViewer'),
   viewerOverlay: document.getElementById('noteViewerOverlay'),
   viewerPanel: document.getElementById('noteViewerPanel'),
@@ -35,36 +31,18 @@ const viewerState = {
   lastFocused: null
 };
 
-const progressState = {
-  active: [],
-  queue: [],
-  lastUpdated: null
-};
-
-function setStatus(message) {
-  if (DOM.debugStatus) {
-    DOM.debugStatus.textContent = message;
-  }
-  console.log('[WSA]', message);
-}
-
 const focusableSelector = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
 
-if (DOM.viewerClose) {
-  DOM.viewerClose.addEventListener('click', closeNoteViewer);
-}
-if (DOM.viewerOverlay) {
-  DOM.viewerOverlay.addEventListener('click', closeNoteViewer);
-}
+DOM.viewerClose?.addEventListener('click', closeNoteViewer);
+DOM.viewerOverlay?.addEventListener('click', closeNoteViewer);
 document.addEventListener('keydown', handleViewerKeydown);
 
 init();
 
 async function init() {
-  setStatus('Initializing…');
   setupTelegramShell();
 
-  if (window.marked && typeof window.marked.setOptions === 'function') {
+  if (window.marked?.setOptions) {
     window.marked.setOptions({
       gfm: true,
       breaks: true,
@@ -73,8 +51,15 @@ async function init() {
     });
   }
 
-  await Promise.all([loadNotes(), loadProgress()]);
-  setStatus(`Lessons loaded: ${state.notes.length}`);
+  try {
+    const res = await fetch('notes.json');
+    state.notes = await res.json();
+    buildModuleFilters();
+    buildTagFilters();
+    applyFilters();
+  } catch (err) {
+    DOM.cards.innerHTML = `<p class="error">Unable to load notes: ${err.message}</p>`;
+  }
 
   DOM.search.addEventListener('input', (e) => {
     state.search = e.target.value.toLowerCase();
@@ -87,46 +72,8 @@ async function init() {
   });
 }
 
-
-async function loadNotes() {
-  try {
-    const res = await fetch('notes.json', { cache: 'no-store' });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    state.notes = await res.json();
-    buildModuleFilters();
-    buildTagFilters();
-    applyFilters();
-    setStatus(`Rendered ${state.filtered.length} lessons`);
-  } catch (err) {
-    DOM.cards.innerHTML = `<p class="error">Unable to load notes: ${err.message}</p>`;
-    setStatus(`Unable to load notes: ${err.message}`);
-  }
-}
-
-async function loadProgress() {
-  if (!DOM.progressFeed) return;
-  try {
-    const res = await fetch('progress.json', { cache: 'no-store' });
-    if (!res.ok) throw new Error('Unable to load progress');
-    const data = await res.json();
-    progressState.active = data.active || [];
-    progressState.queue = data.queue || [];
-    progressState.lastUpdated = data.lastUpdated || null;
-    renderProgress();
-  } catch (err) {
-    if (DOM.progressFeed) {
-      DOM.progressFeed.innerHTML = '<p class="muted">No live sub-agent tasks right now.</p>';
-    }
-        if (DOM.progressUpdated) {
-      DOM.progressUpdated.textContent = '';
-    }
-    if (DOM.progressSection) {
-      DOM.progressSection.hidden = false;
-    }
-}
-
 function setupTelegramShell() {
-  const tg = window.Telegram && window.Telegram.WebApp;
+  const tg = window.Telegram?.WebApp;
   if (!tg) return;
 
   tg.ready();
@@ -165,9 +112,8 @@ function applyTelegramTheme(params = {}) {
 }
 
 function hexToRgba(hex, alpha = 1) {
-  if (!hex) return hex;
-  const clean = hex.replace('#', '');
-  if (clean.length < 6) return hex;
+  const clean = hex?.replace('#', '');
+  if (!clean || clean.length < 6) return hex;
   const bigint = parseInt(clean.slice(0, 6), 16);
   const r = (bigint >> 16) & 255;
   const g = (bigint >> 8) & 255;
@@ -209,7 +155,7 @@ function setActiveModuleButton() {
 
 function buildTagFilters() {
   const tags = new Set();
-  state.notes.forEach((note) => (note.tags || []).forEach((tag) => tags.add(tag)));
+  state.notes.forEach((note) => note.tags?.forEach((tag) => tags.add(tag)));
 
   DOM.tags.innerHTML = '';
   [...tags].sort().forEach((tag) => {
@@ -237,11 +183,11 @@ function applyFilters() {
   state.filtered = state.notes.filter((note) => {
     const matchesStatus = state.status === 'all' || note.status === state.status;
     const matchesModule = state.module === 'all' || note.module === state.module;
-    const matchesTags = !state.activeTags.size || (note.tags || []).some((t) => state.activeTags.has(t));
+    const matchesTags = !state.activeTags.size || note.tags?.some((t) => state.activeTags.has(t));
     const matchesSearch = !state.search ||
       note.lesson.toLowerCase().includes(state.search) ||
       note.module.toLowerCase().includes(state.search) ||
-      (note.tags || []).some((t) => t.toLowerCase().includes(state.search));
+      note.tags?.some((t) => t.toLowerCase().includes(state.search));
     return matchesStatus && matchesModule && matchesTags && matchesSearch;
   });
 
@@ -270,7 +216,7 @@ function renderCards() {
     });
 
     const links = card.querySelector('.links');
-    if (note.links && note.links.video) {
+    if (note.links?.video) {
       const a = document.createElement('a');
       a.href = note.links.video;
       a.target = '_blank';
@@ -281,10 +227,10 @@ function renderCards() {
 
     const notesButton = document.createElement('button');
     notesButton.type = 'button';
-    notesButton.textContent = note.links && note.links.notes ? 'View notes' : 'Notes coming soon';
+    notesButton.textContent = note.links?.notes ? 'View notes' : 'Notes coming soon';
     notesButton.className = 'link-button';
 
-    if (note.links && note.links.notes) {
+    if (note.links?.notes) {
       notesButton.addEventListener('click', () => openNoteViewer(note));
     } else {
       notesButton.disabled = true;
@@ -297,68 +243,6 @@ function renderCards() {
   });
 }
 
-function renderProgress() {
-  if (!DOM.progressSection || !DOM.progressFeed) return;
-  DOM.progressSection.hidden = false;
-  const { active = [], queue = [], lastUpdated } = progressState;
-
-  if (DOM.progressUpdated) {
-    DOM.progressUpdated.textContent = lastUpdated ? `Updated ${formatRelativeTime(lastUpdated)}` : '';
-  }
-
-  DOM.progressFeed.innerHTML = '';
-  if (!active.length) {
-    DOM.progressFeed.innerHTML = '<p class="muted">No active sub-agents right now.</p>';
-    return;
-  }
-
-  const frag = document.createDocumentFragment();
-  active.forEach((task) => frag.appendChild(createProgressCard(task)));
-  DOM.progressFeed.appendChild(frag);
-
-  if (queue.length) {
-    const queueEl = document.createElement('div');
-    queueEl.className = 'progress-queue';
-    const items = queue.map((item) => `<li>${item.title || 'Upcoming task'}${item.note ? ` – ${item.note}` : ''}</li>`).join('');
-    queueEl.innerHTML = `<p class="eyebrow">Queue</p><ul>${items}</ul>`;
-    DOM.progressFeed.appendChild(queueEl);
-  }
-}
-
-function createProgressCard(task) {
-  const card = document.createElement('article');
-  card.className = 'progress-card';
-  const stage = task.stage ? `<span class="progress-stage">${task.stage}</span>` : '';
-  const summary = task.summary || 'Working…';
-  const since = task.started ? formatSince(task.started) : '';
-  card.innerHTML = `
-    <p class="eyebrow">${task.module || ''}</p>
-    <h3>${task.title || 'Lesson'}</h3>
-    ${stage}
-    <p class="progress-summary">${summary}</p>
-    ${since ? `<p class="progress-meta">${since}</p>` : ''}
-  `;
-  return card;
-}
-
-function formatRelativeTime(isoString) {
-  const timestamp = Date.parse(isoString);
-  if (Number.isNaN(timestamp)) return '';
-  const diffMs = Date.now() - timestamp;
-  const minutes = Math.round(diffMs / 60000);
-  if (Math.abs(minutes) < 1) return 'just now';
-  if (Math.abs(minutes) < 60) return `${minutes} min ago`;
-  const hours = Math.round(minutes / 60);
-  return `${hours} hr${Math.abs(hours) === 1 ? '' : 's'} ago`;
-}
-
-function formatSince(isoString) {
-  const timestamp = Date.parse(isoString);
-  if (Number.isNaN(timestamp)) return '';
-  const date = new Date(timestamp);
-  return `Started ${date.toUTCString().replace(/:\d{2} GMT$/, ' GMT')}`;
-}
-
 function formatStatus(status) {
   return status === 'complete' ? 'Complete' : 'In progress';
 }
@@ -369,29 +253,19 @@ async function openNoteViewer(note = {}) {
   viewerState.lastFocused = document.activeElement;
   DOM.viewerTitle.textContent = note.lesson || 'Lesson notes';
   DOM.viewerContent.innerHTML = '';
-  if (DOM.viewerBody) {
-    DOM.viewerBody.scrollTo({ top: 0 });
-  }
+  DOM.viewerBody?.scrollTo({ top: 0 });
   hideViewerError();
   setViewerLoading(true);
 
-  if (DOM.viewerRoot) {
-    DOM.viewerRoot.classList.add('is-open');
-    DOM.viewerRoot.setAttribute('aria-hidden', 'false');
-  }
+  DOM.viewerRoot.classList.add('is-open');
+  DOM.viewerRoot.setAttribute('aria-hidden', 'false');
   document.body.classList.add('has-note-viewer');
   viewerState.isOpen = true;
-  requestAnimationFrame(() => {
-    if (DOM.viewerClose) {
-      DOM.viewerClose.focus();
-    }
-  });
+  requestAnimationFrame(() => DOM.viewerClose?.focus());
 
-  if (viewerState.controller && typeof viewerState.controller.abort === 'function') {
-    viewerState.controller.abort();
-  }
+  viewerState.controller?.abort?.();
 
-  if (!note.links || !note.links.notes) {
+  if (!note.links?.notes) {
     setViewerLoading(false);
     DOM.viewerContent.innerHTML = '<p class="muted">These notes aren’t ready yet. Check back soon.</p>';
     return;
@@ -415,25 +289,17 @@ async function openNoteViewer(note = {}) {
 
 function closeNoteViewer() {
   if (!viewerState.isOpen) return;
-  if (viewerState.controller && typeof viewerState.controller.abort === 'function') {
-    viewerState.controller.abort();
-  }
+  viewerState.controller?.abort?.();
   viewerState.controller = null;
   viewerState.isOpen = false;
-  if (DOM.viewerRoot) {
-    DOM.viewerRoot.classList.remove('is-open');
-    DOM.viewerRoot.setAttribute('aria-hidden', 'true');
-  }
+  DOM.viewerRoot?.classList.remove('is-open');
+  DOM.viewerRoot?.setAttribute('aria-hidden', 'true');
   document.body.classList.remove('has-note-viewer');
   setViewerLoading(false);
   hideViewerError();
   DOM.viewerContent.innerHTML = '';
-  if (DOM.viewerBody) {
-    DOM.viewerBody.scrollTo({ top: 0 });
-  }
-  if (viewerState.lastFocused && typeof viewerState.lastFocused.focus === 'function') {
-    viewerState.lastFocused.focus();
-  }
+  DOM.viewerBody?.scrollTo({ top: 0 });
+  viewerState.lastFocused?.focus?.();
 }
 
 function setViewerLoading(isLoading) {
@@ -457,7 +323,7 @@ function hideViewerError() {
 }
 
 function renderMarkdown(markdown = '') {
-  if (window.marked && typeof window.marked.parse === 'function') {
+  if (window.marked?.parse) {
     return window.marked.parse(markdown);
   }
   const escaped = markdown
@@ -488,8 +354,8 @@ function handleViewerKeydown(event) {
 }
 
 function trapFocus(event) {
-  const focusable = DOM.viewerPanel ? DOM.viewerPanel.querySelectorAll(focusableSelector) : null;
-  if (!focusable || !focusable.length) return;
+  const focusable = DOM.viewerPanel?.querySelectorAll(focusableSelector);
+  if (!focusable?.length) return;
   const first = focusable[0];
   const last = focusable[focusable.length - 1];
 
