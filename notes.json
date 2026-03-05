@@ -87,5 +87,43 @@
       "video": "https://app.wsatraining.com/courses/phase-one/lessons/supply-and-demand/",
       "notes": "content/module-01/supply-and-demand.md"
     }
+  },
+  {
+    "id": "phase-one-moving-averages-aka-itt-2-0",
+    "module": "Phase One",
+    "lesson": "Moving Averages (AKA ITT) 2.0",
+    "teacher": "Cue",
+    "status": "in-progress",
+    "updated": null,
+    "tags": [
+      "moving-averages",
+      "entries",
+      "momentum"
+    ],
+    "summary": "Pulling the ITT lesson so we can codify the moving-average workflow and quick-reference cheatsheet.",
+    "q_and_a": [],
+    "links": {
+      "video": "https://app.wsatraining.com/courses/phase-one/lessons/moving-averages-aka-i-t-t-2-0/",
+      "notes": "content/module-01/moving-averages-aka-i-t-t-2-0.md"
+    }
+  },
+  {
+    "id": "phase-one-identifying-the-trend-1-0",
+    "module": "Phase One",
+    "lesson": "Identifying the Trend 1.0",
+    "teacher": "Cue",
+    "status": "in-progress",
+    "updated": null,
+    "tags": [
+      "structure",
+      "bias",
+      "checklist"
+    ],
+    "summary": "Queuing the market-structure checklist so it pairs with the fresh S/R zones.",
+    "q_and_a": [],
+    "links": {
+      "video": "https://app.wsatraining.com/courses/phase-one/lessons/identifying-the-trend-1-0/",
+      "notes": "content/module-01/identifying-the-trend-1-0.md"
+    }
   }
 ]

@@ -1,0 +1,29 @@
+{
+  "lastUpdated": "2026-03-05T19:10:00Z",
+  "active": [
+    {
+      "id": "phase-one-moving-averages-aka-itt-2-0",
+      "title": "Moving Averages (AKA ITT) 2.0",
+      "module": "Phase One",
+      "stage": "Transcribing",
+      "started": "2026-03-05T19:05:00Z",
+      "summary": "Fetching the lesson video/audio with the new script and running Whisper before distilling the ITT cheat sheet.",
+      "next": "Draft the moving-average rules and add them to the mini app."
+    },
+    {
+      "id": "phase-one-identifying-the-trend-1-0",
+      "title": "Identifying the Trend 1.0",
+      "module": "Phase One",
+      "stage": "Note drafting",
+      "started": "2026-03-05T19:08:00Z",
+      "summary": "Building the market-structure checklist that ties into the new support/resistance framework.",
+      "next": "Tag screenshots and publish once the examples are ready."
+    }
+  ],
+  "queue": [
+    {
+      "title": "Phase One – Additional Information",
+      "note": "Prep the lighter reference lesson right after the current batch ships."
+    }
+  ]
+}

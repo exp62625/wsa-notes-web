@@ -24,6 +24,16 @@
   </header>
 
   <main>
+    <section id="progressSection" class="progress-section" aria-label="Live progress">
+      <div class="progress-head">
+        <div>
+          <p class="eyebrow">Live progress</p>
+          <h2>Status board</h2>
+        </div>
+        <span class="muted" id="progressUpdated"></span>
+      </div>
+      <div id="progressFeed" class="progress-feed" aria-live="polite"></div>
+    </section>
     <nav id="moduleFilters" class="module-nav" aria-label="Module filters"></nav>
     <section id="tagFilters" class="chip-row" aria-label="Tag filters"></section>
     <section id="cards" class="card-grid" aria-live="polite"></section>

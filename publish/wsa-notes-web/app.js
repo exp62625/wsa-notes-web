@@ -14,6 +14,9 @@ const DOM = {
   status: document.getElementById('statusFilter'),
   tags: document.getElementById('tagFilters'),
   modules: document.getElementById('moduleFilters'),
+  progressSection: document.getElementById('progressSection'),
+  progressFeed: document.getElementById('progressFeed'),
+  progressUpdated: document.getElementById('progressUpdated'),
   viewerRoot: document.getElementById('noteViewer'),
   viewerOverlay: document.getElementById('noteViewerOverlay'),
   viewerPanel: document.getElementById('noteViewerPanel'),
@@ -29,6 +32,12 @@ const viewerState = {
   isOpen: false,
   controller: null,
   lastFocused: null
+};
+
+const progressState = {
+  active: [],
+  queue: [],
+  lastUpdated: null
 };
 
 const focusableSelector = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
@@ -51,15 +60,7 @@ async function init() {
     });
   }
 
-  try {
-    const res = await fetch('notes.json');
-    state.notes = await res.json();
-    buildModuleFilters();
-    buildTagFilters();
-    applyFilters();
-  } catch (err) {
-    DOM.cards.innerHTML = `<p class="error">Unable to load notes: ${err.message}</p>`;
-  }
+  await Promise.all([loadNotes(), loadProgress()]);
 
   DOM.search.addEventListener('input', (e) => {
     state.search = e.target.value.toLowerCase();
@@ -70,6 +71,42 @@ async function init() {
     state.status = e.target.value;
     applyFilters();
   });
+}
+
+
+async function loadNotes() {
+  try {
+    const res = await fetch('notes.json', { cache: 'no-store' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    state.notes = await res.json();
+    buildModuleFilters();
+    buildTagFilters();
+    applyFilters();
+  } catch (err) {
+    DOM.cards.innerHTML = `<p class="error">Unable to load notes: ${err.message}</p>`;
+  }
+}
+
+async function loadProgress() {
+  if (!DOM.progressFeed) return;
+  try {
+    const res = await fetch('progress.json', { cache: 'no-store' });
+    if (!res.ok) throw new Error('Unable to load progress');
+    const data = await res.json();
+    progressState.active = data.active || [];
+    progressState.queue = data.queue || [];
+    progressState.lastUpdated = data.lastUpdated || null;
+    renderProgress();
+  } catch (err) {
+    if (DOM.progressFeed) {
+      DOM.progressFeed.innerHTML = '<p class="muted">No live sub-agent tasks right now.</p>';
+    }
+        if (DOM.progressUpdated) {
+      DOM.progressUpdated.textContent = '';
+    }
+    if (DOM.progressSection) {
+      DOM.progressSection.hidden = false;
+    }
 }
 
 function setupTelegramShell() {
@@ -241,6 +278,68 @@ function renderCards() {
 
     DOM.cards.appendChild(card);
   });
+}
+
+function renderProgress() {
+  if (!DOM.progressSection || !DOM.progressFeed) return;
+  DOM.progressSection.hidden = false;
+  const { active = [], queue = [], lastUpdated } = progressState;
+
+  if (DOM.progressUpdated) {
+    DOM.progressUpdated.textContent = lastUpdated ? `Updated ${formatRelativeTime(lastUpdated)}` : '';
+  }
+
+  DOM.progressFeed.innerHTML = '';
+  if (!active.length) {
+    DOM.progressFeed.innerHTML = '<p class="muted">No active sub-agents right now.</p>';
+    return;
+  }
+
+  const frag = document.createDocumentFragment();
+  active.forEach((task) => frag.appendChild(createProgressCard(task)));
+  DOM.progressFeed.appendChild(frag);
+
+  if (queue.length) {
+    const queueEl = document.createElement('div');
+    queueEl.className = 'progress-queue';
+    const items = queue.map((item) => `<li>${item.title || 'Upcoming task'}${item.note ? ` – ${item.note}` : ''}</li>`).join('');
+    queueEl.innerHTML = `<p class="eyebrow">Queue</p><ul>${items}</ul>`;
+    DOM.progressFeed.appendChild(queueEl);
+  }
+}
+
+function createProgressCard(task) {
+  const card = document.createElement('article');
+  card.className = 'progress-card';
+  const stage = task.stage ? `<span class="progress-stage">${task.stage}</span>` : '';
+  const summary = task.summary || 'Working…';
+  const since = task.started ? formatSince(task.started) : '';
+  card.innerHTML = `
+    <p class="eyebrow">${task.module || ''}</p>
+    <h3>${task.title || 'Lesson'}</h3>
+    ${stage}
+    <p class="progress-summary">${summary}</p>
+    ${since ? `<p class="progress-meta">${since}</p>` : ''}
+  `;
+  return card;
+}
+
+function formatRelativeTime(isoString) {
+  const timestamp = Date.parse(isoString);
+  if (Number.isNaN(timestamp)) return '';
+  const diffMs = Date.now() - timestamp;
+  const minutes = Math.round(diffMs / 60000);
+  if (Math.abs(minutes) < 1) return 'just now';
+  if (Math.abs(minutes) < 60) return `${minutes} min ago`;
+  const hours = Math.round(minutes / 60);
+  return `${hours} hr${Math.abs(hours) === 1 ? '' : 's'} ago`;
+}
+
+function formatSince(isoString) {
+  const timestamp = Date.parse(isoString);
+  if (Number.isNaN(timestamp)) return '';
+  const date = new Date(timestamp);
+  return `Started ${date.toUTCString().replace(/:\d{2} GMT$/, ' GMT')}`;
 }
 
 function formatStatus(status) {
