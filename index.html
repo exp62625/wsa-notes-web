@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WSA Notes</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <h1>Wallstreet Academy Notes</h1>
+      <p class="subtitle">Live summary board for Cue's lessons</p>
+    </div>
+    <div class="filters">
+      <input type="search" id="search" placeholder="Search lesson or tag" aria-label="Search" />
+      <select id="statusFilter" aria-label="Status filter">
+        <option value="all">All statuses</option>
+        <option value="complete">Complete</option>
+        <option value="in-progress">In progress</option>
+      </select>
+    </div>
+  </header>
+
+  <main>
+    <section id="tagFilters" class="chip-row" aria-label="Tag filters"></section>
+    <section id="cards" class="card-grid" aria-live="polite"></section>
+  </main>
+
+  <template id="card-template">
+    <article class="card">
+      <div class="card-head">
+        <div>
+          <p class="eyebrow"></p>
+          <h2></h2>
+        </div>
+        <span class="status"></span>
+      </div>
+      <p class="summary"></p>
+      <div class="meta"></div>
+      <div class="links"></div>
+    </article>
+  </template>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>
