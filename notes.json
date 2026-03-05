@@ -159,15 +159,29 @@
     "module": "Phase One",
     "lesson": "Additional Information",
     "teacher": "Cue",
-    "status": "in-progress",
-    "updated": null,
+    "status": "complete",
+    "updated": "2026-03-05",
     "tags": [
-      "onboarding",
-      "prep",
-      "resources"
+      "sessions",
+      "pairs",
+      "risk-management",
+      "printables"
     ],
-    "summary": "Capturing the quick-reference notes that Cue wants printed before diving deeper into Phase One.",
-    "q_and_a": [],
+    "summary": "Cheat-sheeted the London/New York session clocks, Cue's preferred pair list, and the spread/lot math he wants printed next to the desk so Phase One trades stay within planned risk.",
+    "q_and_a": [
+      {
+        "question": "When should I be at the desk for EUR/GBP versus USD trades?",
+        "answer": "London opens 03:00 AM EST (10:00 MT4) and is for EUR/GBP; New York opens 08:00 AM EST (15:00 MT4) and is for USD pairs."
+      },
+      {
+        "question": "What lot size benchmark does Cue use for risk?",
+        "answer": "0.50 lot per $500 in balance and 1.00 lot per $1,000\u2014adjust if needed but know the spread \u00d7 lot cost before entering."
+      },
+      {
+        "question": "Why does Cue stress mastering a single pair?",
+        "answer": "Sticking to one market lets you internalize its session-based volatility and recurring behaviors, which is impossible when rotating through the whole watchlist."
+      }
+    ],
     "links": {
       "video": "https://app.wsatraining.com/courses/phase-one/lessons/additional-information/",
       "notes": "content/module-01/additional-information.md"
@@ -178,15 +192,26 @@
     "module": "Phase One",
     "lesson": "Support and Resistance",
     "teacher": "Cue",
-    "status": "in-progress",
-    "updated": null,
+    "status": "complete",
+    "updated": "2026-03-05",
     "tags": [
       "basics",
-      "levels",
-      "mindset"
+      "line-chart",
+      "htf",
+      "color-coding",
+      "workflow"
     ],
-    "summary": "Revisiting the original S/R primer so the progression from 1.0 \u2192 2.0 stays documented.",
-    "q_and_a": [],
+    "summary": "Captured Quillen's Support & Resistance HD flow: start on the Daily line chart, color-code each timeframe, only keep current-range levels, and maintain the markup for a week+ so later modules can stack on top.",
+    "q_and_a": [
+      {
+        "question": "What order should I build the levels in?",
+        "answer": "Daily line chart for red anchors, H4 line chart for green fillers, then H1 candles to drop orange medians that touch the most wicks without slicing bodies."
+      },
+      {
+        "question": "How do I know if a level deserves to stay on the chart?",
+        "answer": "It needs multiple touches where price struggled on both sides within the current range; if it lives months away or only acted once, delete it."
+      }
+    ],
     "links": {
       "video": "https://app.wsatraining.com/courses/phase-one/lessons/support-and-resistance/",
       "notes": "content/module-01/support-and-resistance.md"
