@@ -54,6 +54,7 @@ async function init() {
   try {
     const res = await fetch('notes.json');
     state.notes = await res.json();
+    state.notes.sort((a, b) => (a.lesson || '').localeCompare(b.lesson || ''));
     buildModuleFilters();
     buildTagFilters();
     applyFilters();
