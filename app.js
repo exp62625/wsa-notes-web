@@ -17,6 +17,8 @@ const DOM = {
 init();
 
 async function init() {
+  setupTelegramShell();
+
   try {
     const res = await fetch('notes.json');
     state.notes = await res.json();
@@ -35,6 +37,55 @@ async function init() {
     state.status = e.target.value;
     applyFilters();
   });
+}
+
+function setupTelegramShell() {
+  const tg = window.Telegram?.WebApp;
+  if (!tg) return;
+
+  tg.ready();
+  tg.expand();
+  applyTelegramTheme(tg.themeParams);
+  tg.onEvent('themeChanged', () => applyTelegramTheme(tg.themeParams));
+}
+
+function applyTelegramTheme(params = {}) {
+  const root = document.documentElement;
+  const themeColor = document.getElementById('theme-color');
+
+  const colors = {
+    '--bg': params.bg_color,
+    '--card-bg': params.secondary_bg_color,
+    '--text': params.text_color,
+    '--muted': params.hint_color,
+    '--accent': params.link_color
+  };
+
+  Object.entries(colors).forEach(([key, value]) => {
+    if (value) {
+      root.style.setProperty(key, value);
+    }
+  });
+
+  if (params.link_color) {
+    root.style.setProperty('--accent-muted', hexToRgba(params.link_color, 0.15));
+  }
+  if (params.hint_color) {
+    root.style.setProperty('--border', hexToRgba(params.hint_color, 0.25));
+  }
+  if (themeColor && params.bg_color) {
+    themeColor.setAttribute('content', params.bg_color);
+  }
+}
+
+function hexToRgba(hex, alpha = 1) {
+  const clean = hex?.replace('#', '');
+  if (!clean || clean.length < 6) return hex;
+  const bigint = parseInt(clean.slice(0, 6), 16);
+  const r = (bigint >> 16) & 255;
+  const g = (bigint >> 8) & 255;
+  const b = bigint & 255;
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
 function buildTagFilters() {
@@ -89,7 +140,7 @@ function renderCards() {
     card.querySelector('.eyebrow').textContent = note.module;
     card.querySelector('h2').textContent = note.lesson;
     card.querySelector('.status').textContent = formatStatus(note.status);
-    card.querySelector('.summary').textContent = note.summary;
+    card.querySelector('.summary').textContent = note.summary || 'Notes coming soon.';
 
     const meta = card.querySelector('.meta');
     (note.tags || []).forEach((tag) => {

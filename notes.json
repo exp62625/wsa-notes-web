@@ -5,13 +5,41 @@
     "lesson": "Drawing Trendlines 2.0",
     "teacher": "Cue",
     "status": "in-progress",
-    "updated": null,
-    "tags": ["technical", "trendlines"],
-    "summary": "Notes are being transcribed—check back shortly.",
+    "updated": "2026-03-05",
+    "tags": ["technical", "trendlines", "market-structure"],
+    "summary": "Transcribing Cue's updated rules for inner vs. outer TLs and pulling chart stills for the examples he shows in class.",
     "q_and_a": [],
     "links": {
       "video": "https://app.wsatraining.com/courses/phase-one/lessons/drawing-trendlines-2-0-2/",
       "notes": "../module-01/drawing-trendlines-2-0.md"
+    }
+  },
+  {
+    "id": "phase-one-support-and-resistance-2-0",
+    "module": "Phase One",
+    "lesson": "Support and Resistance 2.0",
+    "teacher": "Cue",
+    "status": "in-progress",
+    "updated": null,
+    "tags": ["levels", "technical", "entries"],
+    "summary": "Building the cheat sheet for how Cue grades premium vs. discount zones so we can reuse it inside the strategy builder.",
+    "q_and_a": [],
+    "links": {
+      "video": "https://app.wsatraining.com/courses/phase-one/lessons/support-and-resistance-2-0/"
+    }
+  },
+  {
+    "id": "phase-one-supply-and-demand",
+    "module": "Phase One",
+    "lesson": "Supply and Demand",
+    "teacher": "Cue",
+    "status": "in-progress",
+    "updated": null,
+    "tags": ["order-blocks", "continuation", "risk"],
+    "summary": "Queuing screenshots that show Cue's confirmation candles + risk box so the eventually strategy view can cross-reference.",
+    "q_and_a": [],
+    "links": {
+      "video": "https://app.wsatraining.com/courses/phase-one/lessons/supply-and-demand/"
     }
   }
 ]
