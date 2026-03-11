@@ -251,6 +251,254 @@
       "video": "https://app.wsatraining.com/courses/phase-one/lessons/save-these-and-print-them-out/",
       "notes": "content/module-01/save-these-and-print-them-out.md"
     },
+    "downloads": [
+      {
+        "label": "Reversal Patterns PDF",
+        "href": "content/module-01/assets/save-these-and-print-them-out/phase-one-reversal-patterns.pdf",
+        "meta": "121 pages"
+      }
+    ],
     "section": "phase-one"
+  },
+  {
+    "id": "phase-two-using-fibonacci-1-0",
+    "module": "Phase Two",
+    "lesson": "Using Fibonacci 1.0",
+    "teacher": "Cue",
+    "status": "complete",
+    "updated": "2026-03-10",
+    "tags": [
+      "fibonacci",
+      "retracements",
+      "structure",
+      "confluence",
+      "momentum"
+    ],
+    "summary": "Documented Cue's single-push fib workflow, the behavior of each retracement band (38.2% snap vs. 61.8% grind), and how to stack the tool with pre-marked support/resistance before planning entries.",
+    "q_and_a": [
+      {
+        "question": "Why must I only measure one clean impulse with the fib tool?",
+        "answer": "Because Fibonacci retracements quantify the pullback of a single move; mixing consolidation or multiple legs distorts the percentage and gives fake confluence."
+      },
+      {
+        "question": "How should I expect price to react at 38.2% versus 61.8%?",
+        "answer": "38.2% usually snaps fast and violently, so confirmation must be quick; 61.8% is slower and more methodical, letting you wait for structure or candle confirmation before entering."
+      },
+      {
+        "question": "When does a fib level deserve risk?",
+        "answer": "When it lines up with an existing support/resistance zone or prior swing point\u2014confluence tells you that more traders care about that level, not just a percentage."
+      }
+    ],
+    "links": {
+      "video": "https://app.wsatraining.com/courses/phase-two/lessons/using-fibonacci-1-0/",
+      "notes": "content/module-02/using-fibonacci-1-0.md"
+    },
+    "section": "phase-two"
+  },
+  {
+    "id": "phase-two-drawing-market-structure",
+    "module": "Phase Two",
+    "lesson": "Drawing Market Structure",
+    "teacher": "Cue",
+    "status": "complete",
+    "updated": "2026-03-10",
+    "tags": [
+      "structure",
+      "trend",
+      "counter-trend",
+      "confluence",
+      "fibonacci"
+    ],
+    "summary": "Captured Cue's step-by-step process for labeling HH/HL or LH/LL, mapping countertrend pullbacks, and marrying fib PRZs with support/resistance so you can plan continuation entries instead of guessing trend flips.",
+    "q_and_a": [
+      {
+        "question": "What proves an uptrend versus a range when I'm labeling swings?",
+        "answer": "Both highs and lows must step higher; if only one side climbs while the other flattens, treat it as consolidation until structure agrees."
+      },
+      {
+        "question": "How do I plan countertrend trades without fighting the main trend?",
+        "answer": "Mark the prevailing HH/HL staircase, then use fib PRZs (38.2/61.8/78.6/88.6) to target where the correction should end before you rejoin the larger direction."
+      },
+      {
+        "question": "Where does confluence come from in this framework?",
+        "answer": "When a fib PRZ overlaps a previously marked support/resistance level or swing pivot, giving multiple reasons for price to react at the same spot."
+      }
+    ],
+    "links": {
+      "video": "https://app.wsatraining.com/courses/phase-two/lessons/drawing-market-structure/",
+      "notes": "content/module-02/drawing-market-structure.md"
+    },
+    "section": "phase-two"
+  },
+  {
+    "id": "phase-two-market-structure-2-0",
+    "module": "Phase Two",
+    "lesson": "Market Structure 2.0",
+    "teacher": "Cue",
+    "status": "complete",
+    "updated": "2026-03-10",
+    "tags": [
+      "structure",
+      "timeframes",
+      "break-of-structure",
+      "fibonacci",
+      "trendlines"
+    ],
+    "summary": "Upgraded the structure playbook with timeframe purity, triangle variations that still respect trend, fib-based limits on retracements, and the rule for trading the first LH/HL after a break.",
+    "q_and_a": [
+      {
+        "question": "What qualifies as a real break of structure?",
+        "answer": "Two decisive closes beyond the protected higher low (or lower high) on the same timeframe you used to map the trend; lower-TF wicks do not count."
+      },
+      {
+        "question": "Can an uptrend have descending highs and still be bullish?",
+        "answer": "Yes\u2014patterns like descending triangles remain bullish as long as the key higher low holds. Only a break of that base flips the trend."
+      },
+      {
+        "question": "How do Fibs help during structure transitions?",
+        "answer": "Every retracement lives between 0% and 100% of the impulse; once price pushes past 100% (the prior higher low/lower high), you know the trend has flipped and can target the first new LH/HL."
+      }
+    ],
+    "links": {
+      "video": "https://app.wsatraining.com/courses/phase-two/lessons/market-structure-2-0/",
+      "notes": "content/module-02/market-structure-2-0.md"
+    },
+    "section": "phase-two"
+  },
+  {
+    "id": "phase-two-using-fibonacci-2-0",
+    "module": "Phase Two",
+    "lesson": "Using Fibonacci 2.0",
+    "teacher": "Cue",
+    "status": "complete",
+    "updated": "2026-03-11",
+    "tags": [
+      "fibonacci",
+      "structure",
+      "risk",
+      "confluence"
+    ],
+    "summary": "Advanced fib workflow: one-leg measurements, 23.6% continuation logic, deep retrace patience, and 110/120 stop discipline tied to -27%/-61.8% targets.",
+    "q_and_a": [
+      {
+        "question": "Why must I only draw the fib on a single clean impulse?",
+        "answer": "Mixing multiple pushes or chop distorts the percentages, so the PRZs no longer align with real structure and the stop/target math fails."
+      },
+      {
+        "question": "What makes 23.6% different from 61.8%?",
+        "answer": "23.6% is a continuation speed bump that should snap fast; 61.8% is a true reversal zone that usually requires basing and gives slower next legs."
+      },
+      {
+        "question": "How do the 110% and 120% levels help with risk?",
+        "answer": "They act as the final invalidation buffer\u2014touching 110% warns the trade is in danger, while closing beyond 120% means the structure you measured has broken and the idea must be dropped."
+      }
+    ],
+    "links": {
+      "video": "https://app.wsatraining.com/courses/phase-two/lessons/using-fibonacci-2-0/",
+      "notes": "content/module-02/using-fibonacci-2-0.md"
+    },
+    "section": "phase-two"
+  },
+  {
+    "id": "phase-two-fib-tool-settings",
+    "module": "Phase Two",
+    "lesson": "Fib Tool Settings",
+    "teacher": "Cue",
+    "status": "complete",
+    "updated": "2026-03-11",
+    "tags": [
+      "fibonacci",
+      "templates",
+      "execution",
+      "risk"
+    ],
+    "summary": "TradingView fib template with the exact levels/colors Cue trades: continuation reds, golden 61.8 blue, deep patience levels, and red extension bands for stops/targets.",
+    "q_and_a": [
+      {
+        "question": "Why disable background fill and reverse mode?",
+        "answer": "A clean fib keeps the chart legible and ensures every level\u2019s color stands out; reverse/log fills add noise and hide price."
+      },
+      {
+        "question": "What do the red 110% and 120% lines represent?",
+        "answer": "They are the pre-defined stop zones\u2014if price blows through them the trade thesis is invalid, so risk is sized with those bands in mind."
+      },
+      {
+        "question": "How do the green -27% and -61.8% lines help?",
+        "answer": "They are baked-in take-profit checkpoints so you consistently pay yourself at extension targets instead of guessing exits."
+      }
+    ],
+    "links": {
+      "video": "https://app.wsatraining.com/courses/phase-two/lessons/fib-tool-settings/",
+      "notes": "content/module-02/fib-tool-settings.md"
+    },
+    "section": "phase-two"
+  },
+  {
+    "id": "phase-two-fibonacci-chart-breakdown",
+    "module": "Phase Two",
+    "lesson": "Fibonacci Chart Breakdown",
+    "teacher": "Cue",
+    "status": "complete",
+    "updated": "2026-03-11",
+    "tags": [
+      "fibonacci",
+      "confluence",
+      "multi-timeframe",
+      "structure"
+    ],
+    "summary": "Stack macro and intraday fibs inside prior structure so the whole trade is a confluence box\u2014enter on confirmation, stop under the micro swing, scale at -27%/-61.8% extensions.",
+    "q_and_a": [
+      {
+        "question": "What qualifies as a valid confluence zone?",
+        "answer": "At least a macro 61.8/78.6, an intraday 50/61.8, and a horizontal level or trendline touch\u2014all three should overlap before you risk capital."
+      },
+      {
+        "question": "Where should the initial stop go?",
+        "answer": "Just beyond the intraday swing that defines the zone, with awareness that the macro 110/120% extension is the hard kill switch."
+      },
+      {
+        "question": "How do I manage targets once the stack fires?",
+        "answer": "Take partials at the intraday -27% extension or first structure shelf, then hold runners for the macro -27%/-61.8% projections."
+      }
+    ],
+    "links": {
+      "video": "https://app.wsatraining.com/courses/phase-two/lessons/fibonacci-chart-breakdown/",
+      "notes": "content/module-02/fibonacci-chart-breakdown.md"
+    },
+    "section": "phase-two"
+  },
+  {
+    "id": "phase-two-gbpjpy-sexy-candle-breakdown",
+    "module": "Phase Two",
+    "lesson": "GBPJPY Sexy Candle Breakdown",
+    "teacher": "Cue",
+    "status": "complete",
+    "updated": "2026-03-11",
+    "tags": [
+      "gbpjpy",
+      "structure",
+      "breakout",
+      "price-action"
+    ],
+    "summary": "Multi-test GBPJPY range play: wait for the sexy candle that finally breaks support/resistance, then execute on the break or retest with fib targets and pre-planned stops.",
+    "q_and_a": [
+      {
+        "question": "What makes a candle \u2018sexy\u2019 in Cue\u2019s terms?",
+        "answer": "An outside candle with a strong close in the breakout direction and a rejection wick that shows the trapped side is exhausted."
+      },
+      {
+        "question": "Do I enter immediately on the break or wait for a retest?",
+        "answer": "Either works\u2014aggressive traders take the close, conservative ones wait for the broken level to retest and reject before committing."
+      },
+      {
+        "question": "How are targets planned on this setup?",
+        "answer": "Use the range height and fib extensions (-27%/-61.8%) to project TP1/TP2, lining them up with previous highs/lows so you scale out methodically."
+      }
+    ],
+    "links": {
+      "video": "https://app.wsatraining.com/courses/phase-two/lessons/gbpjpy-sexy-candle-breakdown/",
+      "notes": "content/module-02/gbpjpy-sexy-candle-breakdown.md"
+    },
+    "section": "phase-two"
   }
 ]
